@@ -2,7 +2,7 @@ package main
 
 import (
 	"MorseCodeEncoder/encoder"
-	"log"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -16,9 +16,9 @@ import (
 
 
 func TestIEncodeGivenStringToMorseCodeSuccessfully(t *testing.T){
-	testString := "Convert Me To Morse Code"
+	testString := "AB"
 	encodedString := encoder.EncodeToMorseCode(testString," ")
-	log.Println(encodedString)
+	assert.Equalf(t, ".- -...",encodedString,"The encoding operation not correct. Expected morse encoded string not equals actual one")
 }
 //func TestIGetAStringAsParameterSuccessfullyFromRequest(t *testing.T){
 //
