@@ -31,11 +31,11 @@ func TestIGetAStringAsParameterSuccessfullyFromRequest(t *testing.T){
 	app := fiber.New()
 
 	var sentTextToEncode string
-	app.Post("/",func(c *fiber.Ctx) error{
+	app.Get("/encode",func(c *fiber.Ctx) error{
 		sentTextToEncode = c.Query("text")
 		return c.SendStatus(200)
 	})
-	req := httptest.NewRequest(http.MethodPost,fmt.Sprintf("/?text=%s",testText), nil)
+	req := httptest.NewRequest(http.MethodGet,fmt.Sprintf("/encode?text=%s",testText), nil)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	app.Test(req,1)
 	assert.Equalf(t,testText,sentTextToEncode,"The string sent to the api is not taking correctly." )
@@ -44,7 +44,7 @@ func TestISentGivenStringInMorseEncodedFormatSuccessfully(t *testing.T){
 	testText := "AB"
 	app := fiber.New()
 
-	app.Get("/",func(c *fiber.Ctx) error{
+	app.Get("/encode",func(c *fiber.Ctx) error{
 		var sentTextToEncode string
 		sentTextToEncode = c.Query("text")
 		log.Printf("Sended text to encode: %s",sentTextToEncode)
@@ -54,7 +54,7 @@ func TestISentGivenStringInMorseEncodedFormatSuccessfully(t *testing.T){
 		return c.SendStatus(200)
 	})
 
-	req := httptest.NewRequest(http.MethodGet,fmt.Sprintf("/?text=%s",testText), nil)
+	req := httptest.NewRequest(http.MethodGet,fmt.Sprintf("/encode?text=%s",testText), nil)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	resp,_ := app.Test(req,1)
 
