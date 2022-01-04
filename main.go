@@ -9,8 +9,7 @@ import (
 func main(){
 	app:= fiber.New()
 	app.Get("/encode", func(c *fiber.Ctx) error {
-		var sentTextToEncode string
-		sentTextToEncode = c.Query("text")
+		sentTextToEncode := c.Query("text")
 		if sentTextToEncode != ""{
 			return c.SendString(encoder.EncodeToMorseCode(sentTextToEncode," "))
 		}
