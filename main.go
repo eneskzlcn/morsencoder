@@ -3,6 +3,7 @@ package main
 import (
 	"MorseCodeEncoder/encoder"
 	"github.com/gofiber/fiber/v2"
+	"log"
 )
 
 func main(){
@@ -15,5 +16,8 @@ func main(){
 		}
 		return c.SendStatus(404)
 	})
-	app.Listen(":4006")
+	err := app.Listen(":4006")
+	if err != nil {
+		log.Fatal(err)
+	}
 }
