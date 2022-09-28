@@ -20,4 +20,5 @@ jobs:
         run: go build -o bin/morsencoder ./cmd/morsencoder
 
       - name: Test
-        run: go test ./internal/...
+        run: go test -v ./internal/morsencoder
+

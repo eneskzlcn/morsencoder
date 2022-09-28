@@ -14,7 +14,7 @@ clean:
 	rm -rf bin
 
 unit-tests:
-	go test -v ./internal/...
+	go test -v ./internal/morsencoder
 
 generate-mocks:
 	mockgen -destination=internal/mocks/mock_logger.go -package mocks github.com/eneskzlcn/morsencoder/internal/morsencoder Logger
