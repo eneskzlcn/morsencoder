@@ -7,7 +7,7 @@ import (
 
 func NewZapLoggerForEnv(env string, callerSkip int) (*zap.SugaredLogger, error) {
 	if env == "" || env == "local" || env == "test" || env == "qa" || env == "dev" {
-		logger, err := zap.NewDevelopment(zap.AddCallerSkip(1))
+		logger, err := zap.NewDevelopment(zap.AddCallerSkip(callerSkip))
 		return logger.Sugar(), err
 	} else if env == "prod" {
 		logger, err := zap.NewProduction(zap.AddCallerSkip(callerSkip), zap.AddStacktrace(zap.ErrorLevel))
