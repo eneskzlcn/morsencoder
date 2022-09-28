@@ -1,5 +1,7 @@
 package morsencoder
 
+import "errors"
+
 var morseCodesMap = map[string]string{
 	"A": ".-",
 	"B": "-...",
@@ -47,3 +49,7 @@ var morseCodesMap = map[string]string{
 	"(": "-.--.",
 	")": "-.--.-",
 }
+
+var (
+	InvalidTextToEncode = errors.New("invalid text to encode")
+)
