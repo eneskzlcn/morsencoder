@@ -1,6 +1,9 @@
 package morsencoder
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"errors"
+	"github.com/gofiber/fiber/v2"
+)
 
 type MorseEncoderService interface {
 	Encode(textToEncode string) (string, error)
@@ -27,6 +30,9 @@ func (h *Handler) Encode(ctx *fiber.Ctx) error {
 	h.logger.Debugf("Encoding request arrived for the string %s", textToEncode)
 	encodedText, err := h.service.Encode(textToEncode)
 	if err != nil {
+		if errors.Is(err, InvalidTextToEncode) {
+			return ctx.SendStatus(fiber.StatusBadRequest)
+		}
 		return ctx.SendStatus(fiber.StatusInternalServerError)
 	}
 	return ctx.Status(fiber.StatusOK).SendString(encodedText)
